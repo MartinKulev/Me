@@ -1,0 +1,53 @@
+﻿<style>
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+    .dropdown-item:hover {
+        background-color: whitesmoke !important;
+    }
+
+    .gradient-navbar {
+        background: linear-gradient(to left, #000000, #333333);
+    }
+</style>
+
+<section class="navbar navbar-expand-lg text-white gradient-navbar px-3">
+    <a class="text-white text-decoration-none fs-4" href="#">MartinKulev</a>
+    <section class="navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown p-0 m-2">
+                <a class="nav-link dropdown-toggle text-white" id="homeDropdown">
+                    Coding
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item text-black" href="counter">Projects</a></li>
+                    <li><a class="dropdown-item text-black" href="#">Work Experience</a></li>
+                    <li><a class="dropdown-item text-black" href="#">CV</a></li>
+                    <li><a class="dropdown-item text-black" href="#">My story</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown p-0 m-2">
+                <a class="nav-link dropdown-toggle text-white" id="counterDropdown">
+                    Personal
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item text-black" href="#">Music</a></li>
+                    <li><a class="dropdown-item text-black" href="#">Gym</a></li>
+                    <li><a class="dropdown-item text-black" href="#">My Character</a></li> @* stats *@
+                    <li><a class="dropdown-item text-black" href="#">Blog</a></li>
+                    <li><a class="dropdown-item text-black" href="#">Quotes</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown p-0 m-2">
+                <a class="nav-link dropdown-toggle text-white" id="fetchDropdown">
+                    Other
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item text-black" href="#">LinkTree</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</section>
