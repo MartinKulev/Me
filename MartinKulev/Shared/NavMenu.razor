@@ -11,21 +11,25 @@
     .gradient-navbar {
         background: linear-gradient(to left, #000000, #333333);
     }
+
+    .dropdown-item i {
+        margin-right: 8px;
+    }
 </style>
 
-<section class="navbar navbar-expand-lg text-white gradient-navbar px-3">
+<nav class="navbar navbar-expand-lg text-white gradient-navbar px-3">
     <a class="text-white text-decoration-none fs-4" href="#">MartinKulev</a>
     <section class="navbar-collapse">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto me-5">
             <li class="nav-item dropdown p-0 m-2">
                 <a class="nav-link dropdown-toggle text-white" id="homeDropdown">
                     Coding
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item text-black" href="counter">Projects</a></li>
-                    <li><a class="dropdown-item text-black" href="#">Work Experience</a></li>
-                    <li><a class="dropdown-item text-black" href="#">CV</a></li>
-                    <li><a class="dropdown-item text-black" href="#">My story</a></li>
+                    <li><a class="dropdown-item text-black" href="counter"><i class="bi bi-code-slash"></i>Projects</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-briefcase"></i>Work Experience</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-file-earmark-person"></i>CV</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-journal-text"></i>My Story</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown p-0 m-2">
@@ -33,11 +37,12 @@
                     Personal
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item text-black" href="#">Music</a></li>
-                    <li><a class="dropdown-item text-black" href="#">Gym</a></li>
-                    <li><a class="dropdown-item text-black" href="#">My Character</a></li> @* stats *@
-                    <li><a class="dropdown-item text-black" href="#">Blog</a></li>
-                    <li><a class="dropdown-item text-black" href="#">Quotes</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-chat-left-text"></i>Blog</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-quote"></i>Quotes</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-music-note-beamed"></i>Music</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-person-arms-up"></i>Gym</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-award"></i>Achievements</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-person-lines-fill"></i>My Character</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown p-0 m-2">
@@ -45,9 +50,9 @@
                     Other
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item text-black" href="#">LinkTree</a></li>
+                    <li><a class="dropdown-item text-black" href="#"><i class="bi bi-link-45deg"></i>LinkTree</a></li>
                 </ul>
             </li>
         </ul>
     </section>
-</section>
+</nav>

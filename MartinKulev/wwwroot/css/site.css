@@ -67,8 +67,7 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
-html, body {
+.main-section {
     background-color: #f5f5f5 !important;
-    height: 100%;
-    margin: 0;
+    height: 120vh;
 }
