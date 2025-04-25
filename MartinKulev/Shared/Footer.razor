@@ -2,9 +2,38 @@
     .gradient-footer {
         background: linear-gradient(to right, #000000, #444444);
     }
+
+    .social-icons {
+        display: flex;
+        gap: 1rem;
+        padding-top: 0.5rem;
+        justify-content: flex-start;
+        font-size: 1.4rem;
+    }
+
+        .social-icons a {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+            .social-icons a:hover {
+                color: #ccc;
+            }
 </style>
 
+<section class="text-white p-3 gradient-footer">
+    <p class="m-0 text-center">&copy; @DateTime.Now.Year Martin Kulev. All rights reserved.</p>
 
-<section class="text-white text-center p-3 gradient-footer">
-    <p class="m-0">&copy; @DateTime.Now.Year Martin Kulev. All rights reserved.</p>
+    <div class="social-icons mt-2">
+        <a href="https://github.com/MartinKulev" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/martinkulev/" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="mailto:martindkulev@gmail.com"><i class="bi bi-envelope"></i></a>
+        <a href="https://x.com/MartinKulev1" target="_blank"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://www.threads.com/@@martin_kulevv" target="_blank"><i class="bi bi-threads"></i></a>
+        <a href="https://www.instagram.com/martin_kulevv" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.facebook.com/martin.kulev.75/" target="_blank"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.tiktok.com/@@martin_kulev" target="_blank"><i class="bi bi-tiktok"></i></a>
+        <a href="https://www.youtube.com/@@martinkulev" target="_blank"><i class="bi bi-youtube"></i></a>
+        <a href="https://www.twitch.tv/xfreebg" target="_blank"><i class="bi bi-twitch"></i></a>
+    </div>
 </section>
