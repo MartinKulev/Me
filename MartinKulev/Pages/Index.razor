@@ -1,11 +1,37 @@
 ﻿@page "/"
 
 <PageTitle>Index</PageTitle>
+<style>
+    .image-collage {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        width: 40%;
+        margin: 0 auto;
+        min-width: 300px;
+    }
+
+    .collage-image {
+        width: 100%;
+        height: auto;
+        border-radius: 3%;
+    }
+</style>
 <section>
 
     <h1>Welcome to my website!</h1>
 
-    <p class="fs-5">Here is a welcome drink: <i class="bi bi-cup-straw fs-4"></i></p>
+    <p class="fs-5">
+        Here is a welcome drink:
+        <i class="bi bi-cup-straw fs-4 text-info"></i>
+    </p>
+
+    <div class="image-collage mb-5">
+        <img src="/MartinKulevBody.jpg" alt="Martin Kulev" class="collage-image" />
+        <img src="/Coding.jpg" alt="Coding" class="collage-image" />
+        <img src="/GymBestPicture.jpg" alt="Gym" class="collage-image" />
+        <img src="/DubaiMe.jpg" alt="Dubai" class="collage-image" />
+    </div>
 
 </section>
 
