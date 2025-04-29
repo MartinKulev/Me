@@ -1,0 +1,20 @@
+﻿.gradient-footer {
+    background: linear-gradient(to right, #000000, #444444);
+}
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    font-size: 1.4rem;
+}
+
+    .social-icons a {
+        color: white;
+        transition: color 0.3s ease;
+    }
+
+        .social-icons a:hover {
+            color: #ccc;
+        }

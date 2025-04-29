@@ -66,3 +66,20 @@
         overflow-y: auto;
     }
 }
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.dropdown-item:hover {
+    background-color: whitesmoke !important;
+}
+
+.gradient-navbar {
+    background: linear-gradient(to left, #000000, #333333);
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+}
