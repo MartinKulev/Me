@@ -1,0 +1,10 @@
+﻿@code {
+    [Parameter] public string Url { get; set; } = "";
+    [Parameter] public string CssClass { get; set; } = "";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Text { get; set; } = "";
+}
+
+<a href="@Url" target="_blank" class="btn @CssClass mb-4 w-50 d-flex justify-content-center p-2">
+    <i class="@Icon me-2"></i> @Text
+</a>

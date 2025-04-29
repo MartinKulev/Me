@@ -1,0 +1,17 @@
+﻿.techstack-section {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}

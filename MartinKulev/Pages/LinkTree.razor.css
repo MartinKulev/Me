@@ -1,0 +1,109 @@
+﻿.btn-github {
+    border: 2px solid #211F1F;
+    color: #211F1F;
+    font-size: 1.2rem;
+}
+
+    .btn-github:hover {
+        background-color: #211F1F;
+        color: white;
+    }
+
+.btn-linkedin {
+    border: 2px solid #0077b5;
+    color: #0077b5;
+    font-size: 1.2rem;
+}
+
+    .btn-linkedin:hover {
+        background-color: #0077b5;
+        color: white;
+    }
+
+.btn-gmail {
+    border: 2px solid #ea4335;
+    color: #ea4335;
+    font-size: 1.2rem;
+}
+
+    .btn-gmail:hover {
+        background-color: #ea4335;
+        color: white;
+    }
+
+.btn-x {
+    border: 2px solid #000000;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+    .btn-x:hover {
+        background-color: #000000;
+        color: white;
+    }
+
+.btn-threads {
+    border: 2px solid #000000;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+    .btn-threads:hover {
+        background-color: #000000;
+        color: white;
+    }
+
+.btn-instagram {
+    border: 2px solid #e4405f;
+    color: #e4405f;
+    font-size: 1.2rem;
+}
+
+    .btn-instagram:hover {
+        background-color: #e4405f;
+        color: white;
+    }
+
+.btn-facebook {
+    border: 2px solid #1877f2;
+    color: #1877f2;
+    font-size: 1.2rem;
+}
+
+    .btn-facebook:hover {
+        background-color: #1877f2;
+        color: white;
+    }
+
+.btn-tiktok {
+    border: 2px solid #000000;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+    .btn-tiktok:hover {
+        background-color: #000000;
+        color: white;
+    }
+
+.btn-youtube {
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    font-size: 1.2rem;
+}
+
+    .btn-youtube:hover {
+        background-color: #ff0000;
+        color: white;
+    }
+
+.btn-twitch {
+    border: 2px solid #9146ff;
+    color: #9146ff;
+    font-size: 1.2rem;
+}
+
+    .btn-twitch:hover {
+        background-color: #9146ff;
+        color: white;
+    }

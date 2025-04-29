@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Components
+<style>
+    .tech-card {
+        background-color: #fffac0;
+        border-radius: 5%;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-range {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        background: linear-gradient( to right, #0d6efd 0%, #0d6efd var(--val), #ddd var(--val), #ddd 100% );
+    }
+
+        .form-range::-webkit-slider-thumb {
+            appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            border: 2px solid white;
+        }
+
+        .form-range::-moz-range-thumb {
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            border: 2px solid white;
+        }
+
+        .form-range::-webkit-slider-runnable-track {
+            background: transparent;
+        }
+
+        .form-range::-moz-range-track {
+            background: transparent;
+        }
+</style>
+
+<div class="tech-card">
+    <i class="@Icon text-primary fs-3 mb-2"></i>
+    <h5>@Name</h5>
+    <input type="range" min="0" max="100" value="@Level" disabled
+           class="form-range custom-range"
+           style="--val:@Level%;" />
+    <small class="text-muted">@Level%</small>
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; } = "";
+    [Parameter] public int Level { get; set; }
+    [Parameter] public string Icon { get; set; } = "";
+}

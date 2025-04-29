@@ -1,0 +1,14 @@
+﻿.image-collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 40%;
+    margin: 0 auto;
+    min-width: 250px;
+}
+
+.collage-image {
+    width: 100%;
+    height: auto;
+    border-radius: 3%;
+}
