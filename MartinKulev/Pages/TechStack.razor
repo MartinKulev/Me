@@ -1,0 +1,101 @@
+﻿@page "/techstack"
+
+<PageTitle>TechStack</PageTitle>
+<style>
+    .techstack-section {
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .intro-text {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .tech-card {
+        background-color: #fffac0;
+        border-radius: 5%;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-range {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        background: linear-gradient( to right, #0d6efd 0%, #0d6efd var(--val), #ddd var(--val), #ddd 100% );
+    }
+
+        .form-range::-webkit-slider-thumb {
+            appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            border: 2px solid white;
+        }
+
+        .form-range::-moz-range-thumb {
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            border: 2px solid white;
+        }
+
+        .form-range::-webkit-slider-runnable-track {
+            background: transparent;
+        }
+
+        .form-range::-moz-range-track {
+            background: transparent;
+        }
+</style>
+
+<section class="techstack-section">
+    <h1>My Tech Stack</h1>
+    <p class="intro-text">Here’s a visual breakdown of my proficiency with various technologies.</p>
+
+    <div class="tech-grid">
+        @foreach (var tech in TechSkills)
+        {
+            <div class="tech-card">
+                <i class="@tech.Icon text-primary fs-3 mb-2"></i>
+                <h5>@tech.Name</h5>
+                <input type="range" min="0" max="100" value="@tech.Level" disabled
+                       class="form-range custom-range"
+                       style="--val:@tech.Level%;" />
+                <small class="text-muted">@tech.Level%</small>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    record TechSkill(string Name, int Level, string Icon);
+
+    List<TechSkill> TechSkills = new()
+{
+    new TechSkill(".NET", 90, "bi bi-filetype-cs"),
+    new TechSkill("EF Core", 90, "bi bi-diagram-3"),
+    new TechSkill("SQL", 80, "bi bi-database"),
+    new TechSkill("Blazor", 90, "bi bi-lightning-charge"),
+    new TechSkill("ASP.NET MVC", 80, "bi bi-diagram-2"),
+    new TechSkill("HTML", 90, "bi bi-filetype-html"),
+    new TechSkill("CSS", 90, "bi bi-filetype-css"),
+    new TechSkill("CSS", 90, "bi bi-bootstrap"),
+    new TechSkill("JavaScript", 30, "bi bi-filetype-js"),
+    new TechSkill("Git", 80, "bi bi-git"),
+    new TechSkill("Azure", 60, "bi bi-cloud-arrow-up"),
+    new TechSkill("Microsoft Office", 80, "bi bi-file-earmark-text"),
+};
+}
