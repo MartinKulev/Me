@@ -68,3 +68,23 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+
+.chatbot-launch-button {
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9999;
+    transition: background-color 0.3s ease;
+}
+
+    .chatbot-launch-button:hover {
+        background-color: #0056b3;
+    }
