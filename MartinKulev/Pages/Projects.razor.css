@@ -1,0 +1,96 @@
+﻿.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
+    gap: 5rem;
+    padding: 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.project-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+}
+
+    .project-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card h3 {
+        margin-top: 0;
+    }
+
+    .project-card a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .project-card a:hover {
+            text-decoration: underline;
+        }
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+    .language::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ccc;
+    }
+
+.lang-csharp::before {
+    background-color: #178600;
+}
+
+.lang-cpp::before {
+    background-color: #f34b7d;
+}
+
+.lang-fsharp::before {
+    background-color: #b845fc;
+}
+
+
+.lang-javascript::before {
+    background-color: #f1e05a;
+}
+
+.lang-html::before {
+    background-color: #e34c26;
+}
+
+.lang-css::before {
+    background-color: #563d7c;
+}
+
+.lang-python::before {
+    background-color: #3572A5;
+}
+
+.lang-typescript::before {
+    background-color: #2b7489;
+}
+
+.lang-java::before {
+    background-color: #b07219;
+}

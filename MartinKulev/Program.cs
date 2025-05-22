@@ -1,8 +1,11 @@
+using MartinKulev.Services.Projects;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddTransient<IProjectsService, ProjectsService>();
 
 var app = builder.Build();
 

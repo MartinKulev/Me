@@ -2,7 +2,29 @@
 <PageTitle>Projects</PageTitle>
 <h3 class="text-center">Projects</h3>
 
-<h1 class="text-center text-danger">This page is under construction!</h1>
-@code {
 
-}
+<div class="project-grid">
+    @foreach (var project in Vm.GitHubRepos)
+    {
+        <div class="project-card">
+            <h3>@project.Name</h3>
+            <p class="language lang-@GetLanguageClass(project.Language)">
+                @project.Language
+            </p>
+            <p><strong>Created:</strong> @project.CreatedAt.ToShortDateString()</p>
+            <p><strong>Updated:</strong> @project.UpdatedAt.ToShortDateString()</p>
+
+            <a href="@project.HtmlUrl" target="_blank">🔗 GitHub Repo</a>
+
+            @if (!string.IsNullOrEmpty(project.Homepage))
+            {
+                <p>
+                    <a href="@project.Homepage" target="_blank">🌐 Live Site</a>
+                </p>
+            }
+            <p>
+
+            </p>
+        </div>
+    }
+</div>
