@@ -1,4 +1,4 @@
-﻿using MartinKulev.Entities.Projects;
+﻿using MartinKulev.Dtos.Projects;
 using Newtonsoft.Json;
 
 namespace MartinKulev.Services.Projects

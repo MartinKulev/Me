@@ -1,4 +1,4 @@
-﻿using MartinKulev.Entities.Projects;
+﻿using MartinKulev.Dtos.Projects;
 
 namespace MartinKulev.ViewModels.Projects
 {

@@ -2,7 +2,7 @@
 using MartinKulev.Services.Projects;
 using MartinKulev.ViewModels.Projects;
 
-namespace MartinKulev.Pages
+namespace MartinKulev.Pages.Projects
 {
     public partial class Projects
     {

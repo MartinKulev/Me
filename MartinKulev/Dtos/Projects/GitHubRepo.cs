@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MartinKulev.Entities.Projects
+namespace MartinKulev.Dtos.Projects
 {
     public class GitHubRepo
     {
