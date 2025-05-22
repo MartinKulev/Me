@@ -11,8 +11,8 @@
             <p class="language lang-@GetLanguageClass(project.Language)">
                 @project.Language
             </p>
-            <p><strong>Created:</strong> @project.CreatedAt.ToShortDateString()</p>
-            <p><strong>Updated:</strong> @project.UpdatedAt.ToShortDateString()</p>
+            <p><strong>Created:</strong> @project.CreatedAt.ToString("dd MMMM, yyyy")</p>
+            <p><strong>Updated:</strong> @project.UpdatedAt.ToString("dd MMMM, yyyy")</p>
 
             <a href="@project.HtmlUrl" target="_blank">🔗 GitHub Repo</a>
 
