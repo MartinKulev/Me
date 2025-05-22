@@ -1,5 +1,5 @@
 using MartinKulev.Services.Projects;
-
+ 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
