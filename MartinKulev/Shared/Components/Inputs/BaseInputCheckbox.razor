@@ -1,0 +1,34 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@using System.Linq.Expressions
+
+@code {
+    [Parameter]
+    public bool Value { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Label { get; set; }
+
+
+    private bool InternalValue
+    {
+        get => Value;
+        set
+        {
+            if (Value != value)
+            {
+                Value = value;
+                ValueChanged.InvokeAsync(value);
+            }
+        }
+    }
+}
+
+<div class="col-xl-2 text-center m-3">
+    <div class="d-flex flex-column align-items-center">
+        <label>@Label:</label>
+        <InputCheckbox class="form-check-input fs-2 mt-0" @bind-Value="InternalValue" />
+    </div>
+</div>

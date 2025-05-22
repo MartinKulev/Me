@@ -1,7 +1,11 @@
-﻿@page "/projects"
+﻿@using MartinKulev.Shared.Components.Inputs
+@page "/projects"
 <PageTitle>Projects</PageTitle>
 <h3 class="text-center">Projects</h3>
 
+<div class="d-flex justify-content-center">
+    <BaseInputSelect Collection="Vm.OrderOptions" @bind-Value="Vm.CurrentOrderOption" Label="Sort By:" />
+</div>
 
 <div class="project-grid">
     @foreach (var project in Vm.GitHubRepos)

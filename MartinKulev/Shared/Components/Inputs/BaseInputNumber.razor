@@ -1,0 +1,44 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@using System.Linq.Expressions
+@typeparam T
+@code {
+
+    [Parameter]
+    public T? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<T?> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public int Size { get; set; } = 2;
+
+    [Parameter]
+    public Expression<Func<T>>? For { get; set; }
+
+    private T? InternalValue
+    {
+        get => Value;
+        set
+        {
+            if (!EqualityComparer<T>.Default.Equals(Value, value))
+            {
+                Value = value;
+                ValueChanged.InvokeAsync(value);
+            }
+        }
+    }
+}
+
+<div class="col-xl-@Size text-center m-3">
+    <label>@Label:</label>
+    <input @bind="InternalValue" class="form-control" />
+    @if (For != null)
+    {
+        <ValidationMessage For=@For />
+    }
+</div>
+
+

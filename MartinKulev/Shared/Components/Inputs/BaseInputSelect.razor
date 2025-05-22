@@ -1,0 +1,57 @@
+﻿@typeparam T
+@using System.Linq.Expressions
+@using System.Globalization;
+
+@code {
+    [Parameter]
+    public string DefaultValueOption { get; set; }
+
+    [Parameter]
+    public IEnumerable<T> Collection { get; set; } = new List<T>();
+
+    [Parameter]
+    public T? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<T?> ValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<T>>? For { get; set; }
+
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public int Size { get; set; } = 2;
+
+    private T? InternalValue
+    {
+        get => Value;
+        set
+        {
+            if (!EqualityComparer<T>.Default.Equals(Value, value))
+            {
+                Value = value;
+                ValueChanged.InvokeAsync(value);
+            }
+        }
+    }
+}
+
+<div class="col-xl-@Size text-center m-3">
+    <label>@Label:</label>
+    <InputSelect @bind-Value="InternalValue" class="form-control">
+        @if (!string.IsNullOrEmpty(DefaultValueOption))
+        {
+            <option value="">@DefaultValueOption</option>
+        }
+        @foreach (var option in Collection)
+        {
+            <option value="@option">@option?.ToString()</option>
+        }
+    </InputSelect>
+    @if (For != null)
+    {
+        <ValidationMessage For=@For />
+    }
+</div>

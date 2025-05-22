@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MartinKulev.Services.Projects;
 using MartinKulev.ViewModels.Projects;
+using MartinKulev.Dtos.Projects;
 
 namespace MartinKulev.Pages.Projects
 {
@@ -14,8 +15,9 @@ namespace MartinKulev.Pages.Projects
 
         protected async override Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
+            Vm.OnSortChanged = ChangeOrderBasedOnSorting;
             Vm.GitHubRepos = await ProjectService.GetAllProjects();
+            ChangeOrderBasedOnSorting(Vm.CurrentOrderOption);
         }
 
         protected string GetLanguageClass(string language)
@@ -27,6 +29,41 @@ namespace MartinKulev.Pages.Projects
                 "f#" => "fsharp",
                 _ => language?.ToLowerInvariant()?.Replace(" ", "-")
             };
+        }
+
+        protected void ChangeOrderBasedOnSorting(string? selectedValue)
+        {
+            switch (selectedValue)
+            {
+                case "A-Z ↑":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderBy(r => r.Name).ToList();
+                    break;
+                case "Z-A ↓":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.Name).ToList();
+                    break;
+                case "Created ↑":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderBy(r => r.CreatedAt).ToList();
+                    break;
+                case "Created ↓":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.CreatedAt).ToList();
+                    break;
+                case "Last Updated ↑":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderBy(r => r.UpdatedAt).ToList();
+                    break;
+                case "Last Updated ↓":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.UpdatedAt).ToList();
+                    break;
+                case "Language ↑":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderBy(r => r.Language).ToList();
+                    break;
+                case "Language ↓":
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.Language).ToList();
+                    break;
+                default:
+                    // Fallback to default sort if needed
+                    Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.UpdatedAt).ToList();
+                    break;
+            }
         }
     }
 }

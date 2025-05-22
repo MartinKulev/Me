@@ -1,0 +1,42 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@using System.Linq.Expressions
+
+@code {
+    [Parameter]
+    public DateTime? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime?> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public int Size { get; set; } = 2;
+
+    [Parameter]
+    public Expression<Func<DateTime>>? For { get; set; }
+
+
+    private DateTime? InternalValue
+    {
+        get => Value;
+        set
+        {
+            if (Value != value)
+            {
+                Value = value;
+                ValueChanged.InvokeAsync(value);
+            }
+        }
+    }
+}
+
+<div class="col-xl-@Size text-center m-3">
+    <label>@Label:</label>
+    <InputDate @bind-Value="InternalValue" class="form-control"></InputDate>
+    @if (For != null)
+    {
+        <ValidationMessage For=@For />
+    }
+</div>
