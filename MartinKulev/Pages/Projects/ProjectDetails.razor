@@ -1,0 +1,37 @@
+﻿@page "/projectdetails/{projectName}"
+@using MartinKulev.Shared.Components.Inputs
+
+
+<h3 class="text-center">@Vm.ProjectDetails.Name</h3>
+
+<div class="details-container">
+    <div class="readme-section">
+        <h4>README</h4>
+        <div class="readme-content">
+            @((new MarkupString(Vm.ProjectDetails.ReadMe ?? "No README available.")))
+        </div>
+    </div>
+
+    <div class="info-section">
+        <strong>Languages:</strong>
+        <ul>
+            @foreach (var lang in Vm.ProjectDetails.Languages)
+            {
+                <li>@lang</li>
+            }
+        </ul>
+        <p><strong>Created:</strong> @Vm.ProjectDetails.CreatedAt.ToString("dd MMMM, yyyy")</p>
+        <p><strong>Last Updated:</strong> @Vm.ProjectDetails.UpdatedAt.ToString("dd MMMM, yyyy")</p>
+        <p><strong>Commits:</strong> @Vm.ProjectDetails.CommitsCount</p>
+
+        <p>
+            <a href="@Vm.ProjectDetails.HtmlUrl" target="_blank">🔗 GitHub Repo</a>
+        </p>
+        @if (!string.IsNullOrEmpty(Vm.ProjectDetails.Homepage))
+        {
+            <p>
+                <a href="@Vm.ProjectDetails.Homepage" target="_blank">🌐 Live Site</a>
+            </p>
+        }
+    </div>
+</div>

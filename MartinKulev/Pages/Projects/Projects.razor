@@ -1,16 +1,18 @@
 ﻿@using MartinKulev.Shared.Components.Inputs
+@inject NavigationManager NavManager
 @page "/projects"
 <PageTitle>Projects</PageTitle>
 <h3 class="text-center">Projects</h3>
 
 <div class="d-flex justify-content-center">
-    <BaseInputSelect Collection="Vm.OrderOptions" @bind-Value="Vm.CurrentOrderOption" Label="Sort By:" />
+    <BaseInputSelect Collection="Vm.OrderOptions" @bind-Value="Vm.CurrentOrderOption" Label="Sort By" />
 </div>
+
 
 <div class="project-grid">
     @foreach (var project in Vm.GitHubRepos)
     {
-        <div class="project-card">
+        <div class="project-card" @onclick="@(() => NavManager.NavigateTo($"/projectdetails/{project.Name}"))">
             <h3>@project.Name</h3>
             <p class="language lang-@GetLanguageClass(project.Language)">
                 @project.Language
@@ -18,17 +20,16 @@
             <p><strong>Created:</strong> @project.CreatedAt.ToString("dd MMMM, yyyy")</p>
             <p><strong>Updated:</strong> @project.UpdatedAt.ToString("dd MMMM, yyyy")</p>
 
-            <a href="@project.HtmlUrl" target="_blank">🔗 GitHub Repo</a>
+            <p>
+                <a class="project-link" href="@project.HtmlUrl" target="_blank" @onclick:stopPropagation>🔗 GitHub Repo</a>
+            </p>
 
             @if (!string.IsNullOrEmpty(project.Homepage))
             {
                 <p>
-                    <a href="@project.Homepage" target="_blank">🌐 Live Site</a>
+                    <a class="project-link" href="@project.Homepage" target="_blank" @onclick:stopPropagation>🌐 Live Site</a>
                 </p>
             }
-            <p>
-
-            </p>
         </div>
     }
 </div>

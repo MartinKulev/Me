@@ -18,7 +18,7 @@ namespace MartinKulev.ViewModels.Projects
             "Language ↓"
         };
 
-        private string _currentOrderOption = "Last Updated ↑";
+        private string _currentOrderOption = "Last Updated ↓";
         public string CurrentOrderOption
         {
             get => _currentOrderOption;

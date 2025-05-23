@@ -1,0 +1,32 @@
+﻿.details-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.readme-section {
+    flex: 1;
+    min-width: 0;
+}
+
+.readme-content {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+    max-height: 80vh;
+    white-space: pre-wrap;
+}
+
+.info-section {
+    flex: 0 0 auto;
+    width: max-content;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
