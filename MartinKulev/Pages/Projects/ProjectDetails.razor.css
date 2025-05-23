@@ -96,3 +96,17 @@
     background-color: #b07219;
 }
 
+/* Responsive: stack vertically on small screens */
+@media (max-width: 600px) {
+    .details-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .info-section,
+    .readme-section {
+        width: 100%; /* Take full width */
+        flex: unset; /* Remove flex-grow/shrink */
+    }
+}
