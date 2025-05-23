@@ -19,5 +19,16 @@ namespace MartinKulev.Pages.Projects
         {
             Vm.ProjectDetails = await ProjectsService.GetProjectDetails(ProjectName);
         }
+
+        protected string GetLanguageClass(string language)
+        {
+            return language?.ToLowerInvariant() switch
+            {
+                "c#" => "csharp",
+                "c++" => "cpp",
+                "f#" => "fsharp",
+                _ => language?.ToLowerInvariant()?.Replace(" ", "-")
+            };
+        }
     }
 }

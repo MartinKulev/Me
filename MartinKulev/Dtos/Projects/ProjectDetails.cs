@@ -6,6 +6,6 @@
 
         public int CommitsCount { get; set; }
 
-        public List<string> Languages { get; set; }
+        public List<string> Languages { get; set; } = new List<string>();
     }
 }

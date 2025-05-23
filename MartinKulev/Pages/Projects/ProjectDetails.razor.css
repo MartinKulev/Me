@@ -30,3 +30,69 @@
     flex-direction: column;
     gap: 0.5rem;
 }
+
+.language-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.language-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+    .language-item::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #ccc; /* fallback color */
+    }
+
+/* Add your language-specific colors */
+.lang-csharp::before {
+    background-color: #178600;
+}
+
+.lang-cpp::before {
+    background-color: #f34b7d;
+}
+
+.lang-fsharp::before {
+    background-color: #b845fc;
+}
+
+.lang-javascript::before {
+    background-color: #f1e05a;
+}
+
+.lang-html::before {
+    background-color: #e34c26;
+}
+
+.lang-css::before {
+    background-color: #563d7c;
+}
+
+.lang-python::before {
+    background-color: #3572A5;
+}
+
+.lang-typescript::before {
+    background-color: #2b7489;
+}
+
+.lang-java::before {
+    background-color: #b07219;
+}
+

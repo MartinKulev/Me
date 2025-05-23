@@ -13,13 +13,17 @@
     </div>
 
     <div class="info-section">
-        <strong>Languages:</strong>
-        <ul>
-            @foreach (var lang in Vm.ProjectDetails.Languages)
-            {
-                <li>@lang</li>
-            }
-        </ul>
+        <div>
+            <strong>Languages:</strong>
+            <ul class="language-list">
+                @foreach (var lang in Vm.ProjectDetails.Languages)
+                {
+                    <li class="language-item lang-@GetLanguageClass(lang)">
+                        @lang
+                    </li>
+                }
+            </ul>
+        </div>
         <p><strong>Created:</strong> @Vm.ProjectDetails.CreatedAt.ToString("dd MMMM, yyyy")</p>
         <p><strong>Last Updated:</strong> @Vm.ProjectDetails.UpdatedAt.ToString("dd MMMM, yyyy")</p>
         <p><strong>Commits:</strong> @Vm.ProjectDetails.CommitsCount</p>
