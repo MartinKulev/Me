@@ -1,0 +1,32 @@
+﻿<h3 class="text-center">@JobTitle At <span class="@CompanyNameColour">@Company</span></h3>
+
+<div class="details-container">
+    <div class="description-section">
+        <h4>Detailed Description</h4>
+        <div class="description-content">
+            @DetailedDescription
+        </div>
+    </div>
+
+    <div class="info-section">
+        <p><strong>Job Title:</strong> @JobTitle</p>
+        <p><strong>Company:</strong> @Company</p>
+        <p><strong>Duration:</strong> @Duration @GetDuration(StartDate, EndDate)</p>
+        <p><strong>Location:</strong> @Location</p>
+        <span>🔗<a href="@CompanyWebsite" target="_blank">Website</a></span>
+        <img src="@ImagePath" class="image mt-4 p-4"/>
+    </div>
+</div>
+
+    @code {       
+        [Parameter] public string JobTitle { get; set; }
+        [Parameter] public string CompanyNameColour { get; set; }
+        [Parameter] public string Company { get; set; }
+        [Parameter] public string Duration { get; set; }
+        [Parameter] public DateTime StartDate { get; set; }
+        [Parameter] public DateTime EndDate { get; set; }
+        [Parameter] public string Location { get; set; }
+        [Parameter] public string ImagePath { get; set; }
+        [Parameter] public string DetailedDescription { get; set; }
+        [Parameter] public string CompanyWebsite { get; set; }
+    }

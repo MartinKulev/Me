@@ -29,12 +29,12 @@
         <p><strong>Commits:</strong> @Vm.ProjectDetails.CommitsCount</p>
 
         <p>
-            <a href="@Vm.ProjectDetails.HtmlUrl" target="_blank">🔗 GitHub Repo</a>
+            <span>🔗<a href="@Vm.ProjectDetails.HtmlUrl" target="_blank">GitHub Repo</a></span>
         </p>
         @if (!string.IsNullOrEmpty(Vm.ProjectDetails.Homepage))
         {
             <p>
-                <a href="@Vm.ProjectDetails.Homepage" target="_blank">🌐 Live Site</a>
+                <span>🌐<a href="@Vm.ProjectDetails.Homepage" target="_blank">Live Site</a></span>
             </p>
         }
     </div>

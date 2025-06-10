@@ -1,4 +1,5 @@
-﻿<div class="d-flex justify-content-center mt-4">
+﻿@inject NavigationManager NavManager
+<section class="d-flex justify-content-center mt-4 cursor-pointer" @onclick="@(() => NavManager.NavigateTo(OnClickPath))">
     <div class="shadow p-4 bg-white rounded container-width mx-auto px-3 px-md-4">
         <div class="mb-3">
             <div class="d-flex justify-content-between">
@@ -22,7 +23,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 
@@ -33,5 +34,6 @@
     [Parameter] public string Duration { get; set; }
     [Parameter] public string Location { get; set; }
     [Parameter] public string ImagePath { get; set; }
+    [Parameter] public string OnClickPath { get; set; }
     [Parameter] public string Description { get; set; }
 }

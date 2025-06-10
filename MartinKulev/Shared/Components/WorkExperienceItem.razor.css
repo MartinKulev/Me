@@ -17,3 +17,7 @@
     width: 100%;
     max-width: 1000px;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
