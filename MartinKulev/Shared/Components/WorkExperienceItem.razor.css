@@ -12,3 +12,8 @@
     object-fit: contain;
     border-radius: 5px;
 }
+
+.container-width {
+    width: 100%;
+    max-width: 1000px;
+}
