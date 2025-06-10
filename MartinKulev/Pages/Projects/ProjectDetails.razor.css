@@ -56,10 +56,9 @@
         left: 0;
         top: 50%;
         transform: translateY(-50%);
-        background-color: #ccc; /* fallback color */
+        background-color: #ccc;
     }
 
-/* Add your language-specific colors */
 .lang-csharp::before {
     background-color: #178600;
 }
@@ -96,7 +95,6 @@
     background-color: #b07219;
 }
 
-/* Responsive: stack vertically on small screens */
 @media (max-width: 600px) {
     .details-container {
         flex-direction: column;
@@ -106,7 +104,7 @@
 
     .info-section,
     .readme-section {
-        width: 100%; /* Take full width */
-        flex: unset; /* Remove flex-grow/shrink */
+        width: 100%;
+        flex: unset;
     }
 }

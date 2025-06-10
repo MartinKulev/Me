@@ -60,7 +60,6 @@ namespace MartinKulev.Pages.Projects
                     Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.Language).ToList();
                     break;
                 default:
-                    // Fallback to default sort if needed
                     Vm.GitHubRepos = Vm.GitHubRepos.OrderByDescending(r => r.UpdatedAt).ToList();
                     break;
             }

@@ -14,20 +14,19 @@
     {
         <div class="project-card" @onclick="@(() => NavManager.NavigateTo($"/projectdetails/{project.Name}"))">
             <h3>@project.Name</h3>
-            <p class="language lang-@GetLanguageClass(project.Language)">
-                @project.Language
-            </p>
+            <p class="language lang-@GetLanguageClass(project.Language)">@project.Language</p>
+
             <p><strong>Created:</strong> @project.CreatedAt.ToString("dd MMMM, yyyy")</p>
             <p><strong>Updated:</strong> @project.UpdatedAt.ToString("dd MMMM, yyyy")</p>
 
             <p>
-                <a class="project-link" href="@project.HtmlUrl" target="_blank" @onclick:stopPropagation>🔗 GitHub Repo</a>
+                <span>🔗<a href="@project.HtmlUrl" target="_blank">GitHub Repo</a></span>
             </p>
 
             @if (!string.IsNullOrEmpty(project.Homepage))
             {
                 <p>
-                    <a class="project-link" href="@project.Homepage" target="_blank" @onclick:stopPropagation>🌐 Live Site</a>
+                    <span>🌐<a href="@project.Homepage" target="_blank">Live Site</a></span>
                 </p>
             }
         </div>
