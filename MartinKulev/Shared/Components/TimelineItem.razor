@@ -1,0 +1,23 @@
+﻿<div class="timeline-item @Position">
+    <div class="content">
+        @if (!string.IsNullOrEmpty(ImagePath))
+        {
+            <img src="@ImagePath" class="img-fluid rounded mb-2" />
+        }
+        else if (!string.IsNullOrEmpty(VideoPath))
+        {
+            <video src="@VideoPath" controls class="media" />
+        }
+        <h6>@Description</h6>
+        <p>@Date</p>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public string Position { get; set; }
+    [Parameter] public string ImagePath { get; set; }
+    [Parameter] public string VideoPath { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string Date { get; set; }
+}
