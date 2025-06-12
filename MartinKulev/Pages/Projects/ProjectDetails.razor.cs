@@ -1,4 +1,5 @@
-﻿using MartinKulev.Services.Projects;
+﻿using Markdig;
+using MartinKulev.Services.Projects;
 using MartinKulev.ViewModels.Projects;
 using Microsoft.AspNetCore.Components;
 
@@ -18,6 +19,7 @@ namespace MartinKulev.Pages.Projects
         protected override async Task OnInitializedAsync()
         {
             Vm.ProjectDetails = await ProjectsService.GetProjectDetails(ProjectName);
+            Vm.ProjectDetails.ReadMe = GetReadMeHtml(Vm.ProjectDetails.ReadMe);
         }
 
         protected string GetLanguageClass(string language)
@@ -29,6 +31,15 @@ namespace MartinKulev.Pages.Projects
                 "f#" => "fsharp",
                 _ => language?.ToLowerInvariant()?.Replace(" ", "-")
             };
+        }
+
+        public string GetReadMeHtml(string markdown)
+        {
+            if (string.IsNullOrWhiteSpace(markdown))
+                return "<p>No README available.</p>";
+
+            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+            return Markdown.ToHtml(markdown, pipeline);
         }
     }
 }

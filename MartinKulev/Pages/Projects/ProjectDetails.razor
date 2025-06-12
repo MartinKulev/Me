@@ -8,7 +8,7 @@
     <div class="readme-section">
         <h4>README</h4>
         <div class="readme-content">
-            @((new MarkupString(Vm.ProjectDetails.ReadMe ?? "No README available.")))
+            @((MarkupString)Vm.ProjectDetails.ReadMe)
         </div>
     </div>
 

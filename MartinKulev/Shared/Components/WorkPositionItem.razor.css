@@ -17,6 +17,7 @@
     overflow-x: auto;
     max-height: 80vh;
     white-space: pre-wrap;
+    line-height: 2;
 }
 
 .info-section {
