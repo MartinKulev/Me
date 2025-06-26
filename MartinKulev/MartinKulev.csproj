@@ -6,6 +6,7 @@
 		<EnableDefaultScopedCssItems>true</EnableDefaultScopedCssItems>
 	</PropertyGroup>
 	<ItemGroup>
+	  <PackageReference Include="DotNetUpgrade" Version="1.0.6" />
 	  <PackageReference Include="Markdig" Version="0.41.2" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
@@ -18,5 +19,8 @@
 	  </PackageReference>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+	  <PackageReference Include="Serilog" Version="4.3.0" />
+	  <PackageReference Include="Serilog.Extensions" Version="8.1.0" />
+	  <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
 	</ItemGroup>
 </Project>

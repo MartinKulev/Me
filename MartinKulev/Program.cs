@@ -1,6 +1,7 @@
 using MartinKulev.Data;
 using MartinKulev.Services.Projects;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Configuration.AddJsonFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "GitSecrets.json"), optional: true);
 string? connectionString = builder.Configuration.GetConnectionString("MartinKulev") ?? builder.Configuration.GetConnectionString("DefaultConnection")!;

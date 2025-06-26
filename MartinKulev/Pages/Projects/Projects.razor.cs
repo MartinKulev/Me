@@ -10,11 +10,16 @@ namespace MartinKulev.Pages.Projects
         [Inject]
         private IProjectsService ProjectService { get; set; }
 
+        [Inject]
+        private Serilog.ILogger Logger { get; set; }
+
         [Parameter]
         public ProjectsVm Vm { get; set; } = new ProjectsVm();
 
         protected async override Task OnInitializedAsync()
         {
+            Logger.Warning("ffghhgghjhgjhgjhg");
+            Console.WriteLine("lalalalalallala");
             Vm.OnSortChanged = ChangeOrderBasedOnSorting;
             Vm.GitHubRepos = await ProjectService.GetAllProjects();
             ChangeOrderBasedOnSorting(Vm.CurrentOrderOption);
