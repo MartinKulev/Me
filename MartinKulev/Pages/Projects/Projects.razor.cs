@@ -11,14 +11,14 @@ namespace MartinKulev.Pages.Projects
         private IProjectsService ProjectService { get; set; }
 
         [Inject]
-        private Serilog.ILogger Logger { get; set; }
+        private ILogger<Projects> Logger { get; set; }
 
         [Parameter]
         public ProjectsVm Vm { get; set; } = new ProjectsVm();
 
         protected async override Task OnInitializedAsync()
         {
-            Logger.Warning("ffghhgghjhgjhgjhg");
+            Logger.LogWarning("ffghhgghjhgjhgjhg");
             Console.WriteLine("lalalalalallala");
             Vm.OnSortChanged = ChangeOrderBasedOnSorting;
             Vm.GitHubRepos = await ProjectService.GetAllProjects();
@@ -27,7 +27,7 @@ namespace MartinKulev.Pages.Projects
 
         protected string GetLanguageClass(string language)
         {
-            Logger.Warning("ffghhgghjhgjhgjhg2");
+            Logger.LogWarning("ffghhgghjhgjhgjhg2");
             Console.WriteLine("lalalalalallala2");
             return language?.ToLowerInvariant() switch
             {
