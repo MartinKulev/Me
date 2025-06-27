@@ -27,6 +27,8 @@ namespace MartinKulev.Pages.Projects
 
         protected string GetLanguageClass(string language)
         {
+            Logger.Warning("ffghhgghjhgjhgjhg2");
+            Console.WriteLine("lalalalalallala2");
             return language?.ToLowerInvariant() switch
             {
                 "c#" => "csharp",
