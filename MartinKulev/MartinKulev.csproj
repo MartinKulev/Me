@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDefaultScopedCssItems>true</EnableDefaultScopedCssItems>
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="DotNetUpgrade" Version="1.0.6" />
-	  <PackageReference Include="Markdig" Version="0.41.2" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
+	  <PackageReference Include="Markdig" Version="0.44.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
 	  <PackageReference Include="Serilog" Version="4.3.0" />
-	  <PackageReference Include="Serilog.Extensions" Version="8.1.0" />
-	  <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+	  <PackageReference Include="Serilog.Extensions" Version="9.1.0" />
+	  <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
 	</ItemGroup>
 </Project>
