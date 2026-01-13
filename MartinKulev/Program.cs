@@ -29,6 +29,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+Console.WriteLine("Application Started..");
 Log.Logger.Warning($"Hosting_Environemnt: {app.Environment.EnvironmentName}");
 Log.Logger.Warning($"fhgfhkhjkgede34646");
 
