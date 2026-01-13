@@ -2,6 +2,7 @@ using MartinKulev.Data;
 using MartinKulev.Services.Projects;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,11 @@ builder.Configuration.AddJsonFile(Path.Combine(Environment.GetFolderPath(Environ
 string? connectionString = builder.Configuration.GetConnectionString("MartinKulev") ?? builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 builder.Services.AddDbContext<MartinKulevDbContext>(options => options.UseNpgsql(connectionString));
+
+var culture = CultureInfo.GetCultureInfo("en-GB");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
+
 
 var app = builder.Build();
 
