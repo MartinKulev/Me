@@ -1,0 +1,32 @@
+﻿@using MartinKulev.Services.Helper
+<h3 class="text-center">@Specialization At <span class="@SchoolNameColour">@School</span></h3>
+
+<div class="details-container">
+    <div class="description-section">
+        <h4>Detailed Description</h4>
+        <div class="description-content">
+            @DetailedDescription
+        </div>
+    </div>
+
+    <div class="info-section">
+        <p><strong>Specialization:</strong> @Specialization</p>
+        <p><strong>School:</strong> @School</p>
+        <p><strong>Duration:</strong> @StartDate.ToString("MMM yyyy") - @HelperService.GetEndDateToString(EndDate) @HelperService.GetDurationToString(StartDate, EndDate)</p>
+        <p><strong>Location:</strong> @Location</p>
+        <span>🔗<a href="@SchoolWebsite" target="_blank">Website</a></span>
+        <img src="@ImagePath" class="image mt-4 p-4" />
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Specialization { get; set; }
+    [Parameter] public string SchoolNameColour { get; set; }
+    [Parameter] public string School { get; set; }
+    [Parameter] public DateTime StartDate { get; set; }
+    [Parameter] public DateTime? EndDate { get; set; }
+    [Parameter] public string Location { get; set; }
+    [Parameter] public string ImagePath { get; set; }
+    [Parameter] public string DetailedDescription { get; set; }
+    [Parameter] public string SchoolWebsite { get; set; }
+}
