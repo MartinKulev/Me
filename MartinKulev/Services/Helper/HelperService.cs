@@ -36,5 +36,16 @@ namespace MartinKulev.Services.Helper
 
             return endDate.Value.ToString("MMM yyyy", CultureInfo.InvariantCulture);
         }
+
+        public static string FormatTimeAgo(TimeSpan ts)
+        {
+            if (ts.TotalSeconds < 60)
+                return $"{(int)ts.TotalSeconds}s ago";
+            if (ts.TotalMinutes < 60)
+                return $"{(int)ts.TotalMinutes}m ago";
+            if (ts.TotalHours < 24)
+                return $"{(int)ts.TotalHours}h ago";
+            return $"{(int)ts.TotalDays}d ago";
+        }
     }
 }

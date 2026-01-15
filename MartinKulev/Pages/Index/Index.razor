@@ -1,14 +1,51 @@
 ﻿@page "/"
+@using MartinKulev.Services.Helper
 
 <PageTitle>Martin Kulev | Software Developer, Coder & Creator</PageTitle>
 <link rel="icon" href="/favicon.ico">
 <section role="region" aria-label="Intro to my website">
-    <h1>Welcome to my website!</h1>
+    <section class="d-flex flex-row justify-content-between">
+        <section>
+            <h1>Welcome to my website!</h1>
 
-    <p class="fs-5">
-        Here is a welcome drink:
-        <i class="bi bi-cup-straw fs-4 text-info"></i>
-    </p>
+            <p class="fs-5">
+                Here is a welcome drink:
+                <i class="bi bi-cup-straw fs-4 text-info"></i>
+            </p>
+        </section>
+        <section class="d-flex flex-row align-items-start justify-content-end">
+            <div class="now-playing-container d-flex flex-row align-items-center">
+                <img src="@Vm.CurrentSong.AlbumImageUrl" class="album-art me-2" />
+                <div class="w-100">
+                    <div class="song-info me-3">
+                        <div class="song-title">@Vm.CurrentSong.Title</div>
+                        <div class="song-artist">@Vm.CurrentSong.Artist</div>
+                    </div>
+
+                    <div class="song-progress flex-grow-1 w-100">
+                        <input type="range" min="0" max="@Vm.CurrentSong.Duration.TotalSeconds"
+                               value="@Vm.CurrentSong.Progress.TotalSeconds"
+                               class="form-range" disabled />
+                        <div class="d-flex justify-content-between small">
+                            <span>@Vm.CurrentSong.Progress.ToString(@"mm\:ss")</span>
+                            <div class="song-status">
+                                @if ((DateTime.UtcNow - Vm.CurrentSong.PlayedAt).TotalMinutes < 5)
+                                {
+                                    <span class="text-success">Now Playing</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Played @HelperService.FormatTimeAgo(DateTime.UtcNow - Vm.CurrentSong.PlayedAt)</span>
+                                }
+                            </div>
+                            <span>@Vm.CurrentSong.Duration.ToString(@"mm\:ss")</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </section>
 
     <div class="image-collage mb-5" role="region" aria-label="Image collage">
         <img src="/MartinKulevBody.jpg" alt="Martin Kulev" class="collage-image" />

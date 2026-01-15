@@ -27,3 +27,76 @@
     display: inline-block;
     animation: bounce 1s ease-in-out infinite;
 }
+
+.now-playing-container {
+    width: 350px;
+    background-color: #ffffffdd;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.album-art {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.song-info {
+    flex-grow: 1;
+}
+
+.song-title {
+    font-weight: bold;
+}
+
+.song-artist {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.song-status {
+    font-size: 0.75rem;
+}
+
+.song-progress .form-range::-webkit-slider-runnable-track {
+    background-color: lightgray;
+}
+
+.song-progress .form-range::-moz-range-track {
+    background-color: lightgray;
+}
+
+.song-progress .form-range::-ms-track {
+    background-color: lightgray;
+    border-color: lightgray;
+}
+
+.song-progress .form-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.song-progress .form-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;    
+}
+
+.song-progress .form-range::-ms-thumb {
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+

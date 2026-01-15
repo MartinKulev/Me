@@ -1,4 +1,5 @@
 using MartinKulev.Data;
+using MartinKulev.Services.Music;
 using MartinKulev.Services.Projects;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
+builder.Services.AddSingleton<IMusicService, MusicService>();
 
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 builder.Logging.ClearProviders(); // remove default providers
@@ -38,6 +40,8 @@ if (!app.Environment.IsDevelopment())
 Console.WriteLine("Application Started..");
 Log.Logger.Warning($"Hosting_Environemnt: {app.Environment.EnvironmentName}");
 Log.Logger.Warning($"fhgfhkhjkgede34646");
+
+app.Services.GetRequiredService<IMusicService>();
 
 app.UseHttpsRedirection();
 
