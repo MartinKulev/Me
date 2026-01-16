@@ -27,8 +27,6 @@ namespace MartinKulev.Services.Music
             API_KEY = configuration.GetValue<string>("APIKeys:LastFM:ApiKey")!;
             SHARED_SECRET = configuration.GetValue<string>("APIKeys:LastFM:SharedSecret")!;
             USERNAME = configuration.GetValue<string>("APIKeys:LastFM:Username")!;
-            Log.Logger.Warning($"API_KEY: {API_KEY}");
-            Log.Logger.Warning($"SHARED_SECRET: {SHARED_SECRET}");
             _httpClient = new HttpClient();
             _currentSong = new CurrentSongDto
             {
@@ -43,13 +41,13 @@ namespace MartinKulev.Services.Music
                     _currentSong.Progress = _currentSong.Progress.Add(TimeSpan.FromSeconds(1));
                     OnSongChanged?.Invoke();
                 }
-            }, null, 0, 1000);
+            }, null, 0, 950);
 
             _fetchTimer = new Timer(async _ =>
             {
                 await FetchCurrentSong();
                 OnSongChanged?.Invoke();
-            }, null, 0, 5000);
+            }, null, 0, 1000);
         }
 
         public CurrentSongDto GetCurrentSong() => _currentSong;
@@ -58,9 +56,7 @@ namespace MartinKulev.Services.Music
         {
             try
             {
-                Log.Logger.Warning("1" + DateTime.UtcNow);
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
-                Log.Logger.Warning("2" + DateTime.UtcNow);
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {

@@ -39,7 +39,6 @@ if (!app.Environment.IsDevelopment())
 
 Console.WriteLine("Application Started..");
 Log.Logger.Warning($"Hosting_Environemnt: {app.Environment.EnvironmentName}");
-Log.Logger.Warning($"fhgfhkhjkgede34646");
 
 app.Services.GetRequiredService<IMusicService>();
 
