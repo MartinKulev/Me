@@ -58,7 +58,9 @@ namespace MartinKulev.Services.Music
         {
             try
             {
+                Log.Logger.Warning("1" + DateTime.UtcNow);
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
+                Log.Logger.Warning("2" + DateTime.UtcNow);
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
