@@ -1,5 +1,6 @@
 ﻿using MartinKulev.Dtos.Music;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -26,6 +27,8 @@ namespace MartinKulev.Services.Music
             API_KEY = configuration.GetValue<string>("APIKeys:LastFM:ApiKey")!;
             SHARED_SECRET = configuration.GetValue<string>("APIKeys:LastFM:SharedSecret")!;
             USERNAME = configuration.GetValue<string>("APIKeys:LastFM:Username")!;
+            Log.Logger.Warning($"API_KEY: {API_KEY}");
+            Log.Logger.Warning($"SHARED_SECRET: {SHARED_SECRET}");
             _httpClient = new HttpClient();
             _currentSong = new CurrentSongDto
             {
