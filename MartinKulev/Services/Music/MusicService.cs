@@ -4,6 +4,8 @@ using MartinKulev.Dtos.Music;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -20,11 +22,14 @@ namespace MartinKulev.Services.Music
         private readonly string USERNAME;
         private string _sessionKey;
         private Timer _trackTimer;   // updates progress every second
-        private Timer _fetchTimer;   // fetches new track every 15s
+        private Timer _fetchTimer;   // fetches new track every 1s
+        private Timer _addUnexstingTrackToDbTimer;   // adds an item if it doesn't exist every 1min
+        private Timer _fetchAllSongsTimer;   // fetches all songs every 10min
 
         private CurrentSongDto _currentSong;
 
         public event Action OnSongChanged; // Notify UI
+        private ConcurrentBag<ListenedSong> _listenedSongsCache = new ConcurrentBag<ListenedSong>();
 
         public MusicService(IConfiguration configuration, IServiceProvider serviceProvider)
         {
@@ -34,10 +39,12 @@ namespace MartinKulev.Services.Music
             SHARED_SECRET = configuration.GetValue<string>("APIKeys:LastFM:SharedSecret")!;
             USERNAME = configuration.GetValue<string>("APIKeys:LastFM:Username")!;
             _httpClient = new HttpClient();
+            FetchAllSongsFromDbToCache().GetAwaiter().GetResult();
             _currentSong = new CurrentSongDto
             {
                 Artist = "Loading...",
-                Title = "Loading..."
+                Title = "Loading...",
+                IsLoading = true
             };
 
             _trackTimer = new Timer(_ =>
@@ -54,6 +61,19 @@ namespace MartinKulev.Services.Music
                 await FetchCurrentSong();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000);
+
+            _addUnexstingTrackToDbTimer = new Timer(async _ =>
+            {
+                await AddCurrentSongToDb();
+                OnSongChanged?.Invoke();
+            }, null, 0, 1000 * 60);
+            
+            _fetchAllSongsTimer = new Timer(async _ =>
+            {
+                await FetchAllSongsFromDbToCache();
+                OnSongChanged?.Invoke();
+            }, null, 0, 1000 * 60 * 10);
+
         }
 
         public CurrentSongDto GetCurrentSong() => _currentSong;
@@ -63,6 +83,8 @@ namespace MartinKulev.Services.Music
             try
             {
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
+                _currentSong.IsLoading = false;
+                _currentSong.Genre = recentTrack.Genre;
                 Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}, {recentTrack?.Genre}");
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
@@ -175,8 +197,7 @@ namespace MartinKulev.Services.Music
                 playedAt = DateTime.UtcNow;
             }
 
-            using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
-            ListenedSong? listenedSong = await localDbContext.ListenedSongs.FirstOrDefaultAsync(ls => ls.Artist == artist && ls.Title == title);
+            ListenedSong? listenedSong = _listenedSongsCache.FirstOrDefault(ls => ls.Artist == artist && ls.Title == title);
             TimeSpan duration = TimeSpan.Zero;
             try
             {
@@ -248,21 +269,6 @@ namespace MartinKulev.Services.Music
 
             TimeSpan progress = nowPlaying ? DateTime.UtcNow - playedAt : duration;
 
-
-            if (listenedSong == null)
-            {
-                await localDbContext.ListenedSongs.AddAsync(new ListenedSong
-                {
-                    Artist = artist,
-                    Title = title,
-                    AlbumImageUrl = imageUrl,
-                    Duration = duration,
-                    LastPlayedAt = playedAt,
-                    Genre = string.Empty,
-                });
-                await localDbContext.SaveChangesAsync();
-            }
-
             return new CurrentSongDto
             {
                 Artist = artist,
@@ -274,6 +280,35 @@ namespace MartinKulev.Services.Music
                 NowPlaying = nowPlaying,
                 Genre = listenedSong?.Genre
             };
+        }
+
+        private async Task AddCurrentSongToDb()
+        {
+            if(!_currentSong.IsLoading)
+            {
+                using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
+                var existingSong = await localDbContext.ListenedSongs.FirstOrDefaultAsync(ls => ls.Artist == _currentSong.Artist && ls.Title == _currentSong.Title);
+                if (existingSong == null)
+                {
+                    var newSong = new ListenedSong
+                    {
+                        Artist = _currentSong.Artist,
+                        Title = _currentSong.Title,
+                        AlbumImageUrl = _currentSong.AlbumImageUrl,
+                        Duration = _currentSong.Duration,
+                        LastPlayedAt = _currentSong.PlayedAt,
+                        Genre = _currentSong?.Genre ?? string.Empty
+                    };
+                    await localDbContext.ListenedSongs.AddAsync(newSong);
+                    await localDbContext.SaveChangesAsync();
+                }
+            }
+        }
+
+        private async Task FetchAllSongsFromDbToCache()
+        {
+            using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
+            _listenedSongsCache = [.. await localDbContext.ListenedSongs.AsNoTracking().ToListAsync()];
         }
 
         private async Task<string> GetArtistImage(string artistName)
