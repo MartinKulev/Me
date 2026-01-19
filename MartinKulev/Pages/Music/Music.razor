@@ -1,9 +1,46 @@
 ﻿@page "/music"
+@using MartinKulev.Services.Helper
 <PageTitle>Music</PageTitle>
-<h3 class="text-center">Music</h3>
+<h3 class="text-center mb-5">Music</h3>
 
-<h1 class="text-center text-danger">This page is under construction!</h1>
-@code {
+<section class="music-page mt-5">
+    <div class="mobile-player">
+        <img src="@Vm.CurrentSong.AlbumImageUrl" class="player-album-art" />
 
-}
+        <div class="player-title">@Vm.CurrentSong.Title</div>
+        <div class="player-artist">@Vm.CurrentSong.Artist</div>
 
+        <div class="song-progress mt-3">
+            <input type="range"
+                   min="0"
+                   max="@Vm.CurrentSong.Duration.TotalSeconds"
+                   value="@Vm.CurrentSong.Progress.TotalSeconds"
+                   class="form-range"
+                   disabled />
+
+            <div class="d-flex justify-content-between small mt-1">
+                <span>@Vm.CurrentSong.Progress.ToString(@"mm\:ss")</span>
+                <span>@Vm.CurrentSong.Duration.ToString(@"mm\:ss")</span>
+            </div>
+
+            <div class="song-status text-center mt-1">
+                @if ((DateTime.UtcNow - Vm.CurrentSong.PlayedAt).TotalMinutes < 5)
+                {
+                    <span class="text-success">Now Playing</span>
+                }
+                else
+                {
+                    <span class="text-muted">
+                        Played @HelperService.FormatTimeAgo(DateTime.UtcNow - Vm.CurrentSong.PlayedAt)
+                    </span>
+                }
+            </div>
+            @if(!string.IsNullOrEmpty(Vm.CurrentSong.Genre))
+            {
+                <div>
+                    <b>Genre</b>: @Vm.CurrentSong.Genre
+                </div>
+            }
+        </div>
+    </div>
+</section>

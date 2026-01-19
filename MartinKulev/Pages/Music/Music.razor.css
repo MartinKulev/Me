@@ -1,0 +1,79 @@
+﻿.song-status {
+    font-size: 0.75rem;
+    width: 300px;
+}
+
+.song-progress .form-range::-webkit-slider-runnable-track {
+    background-color: lightgray;
+}
+
+.song-progress .form-range::-moz-range-track {
+    background-color: lightgray;
+}
+
+.song-progress .form-range::-ms-track {
+    background-color: lightgray;
+    border-color: lightgray;
+}
+
+.song-progress .form-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.song-progress .form-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.song-progress .form-range::-ms-thumb {
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.music-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.mobile-player {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.player-album-art {
+    width: 300px;
+    height: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.player-title {
+    margin-top: 1.25rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.player-artist {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.25rem;
+}

@@ -57,7 +57,7 @@ namespace MartinKulev.Services.Music
             try
             {
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
-                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}");
+                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}, {recentTrack.Genre}");
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
@@ -170,6 +170,7 @@ namespace MartinKulev.Services.Music
             }
 
             TimeSpan duration = TimeSpan.Zero;
+            List<string> genres = new();
             try
             {
                 string trackInfoUrl = $"https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key={API_KEY}" +
@@ -190,6 +191,17 @@ namespace MartinKulev.Services.Music
                             if (long.TryParse(durationProp.GetString(), out var durMs))
                                 duration = TimeSpan.FromMilliseconds(durMs);
                             break;
+                    }
+                }
+
+                if (trackInfo.TryGetProperty("toptags", out var toptags) &&
+                    toptags.TryGetProperty("tag", out var tagArray))
+                {
+                    foreach (var tag in tagArray.EnumerateArray())
+                    {
+                        var tagName = tag.GetProperty("name").GetString();
+                        if (!string.IsNullOrEmpty(tagName))
+                            genres.Add(tagName);
                     }
                 }
             }
@@ -248,7 +260,8 @@ namespace MartinKulev.Services.Music
                 Duration = duration,
                 Progress = progress,
                 PlayedAt = playedAt,
-                NowPlaying = nowPlaying
+                NowPlaying = nowPlaying,
+                Genre = string.Join(", ", genres)
             };
         }
 

@@ -9,6 +9,8 @@
         public TimeSpan Progress { get; set; } = TimeSpan.Zero; // elapsed time
         public DateTime PlayedAt { get; set; } = DateTime.UtcNow;
         public bool NowPlaying { get; set; } = false;
+
+        public string Genre { get; set; } = "";
     }
 
 }
