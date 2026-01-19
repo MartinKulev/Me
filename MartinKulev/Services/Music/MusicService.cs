@@ -1,4 +1,7 @@
-﻿using MartinKulev.Dtos.Music;
+﻿using MartinKulev.Data;
+using MartinKulev.Data.Entities;
+using MartinKulev.Dtos.Music;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.Security.Cryptography;
@@ -10,6 +13,7 @@ namespace MartinKulev.Services.Music
     public class MusicService : IMusicService
     {
         private readonly IConfiguration _configuration;
+        private readonly IServiceProvider _serviceProvider;
         private readonly HttpClient _httpClient;
         private readonly string API_KEY;
         private readonly string SHARED_SECRET;
@@ -22,8 +26,10 @@ namespace MartinKulev.Services.Music
 
         public event Action OnSongChanged; // Notify UI
 
-        public MusicService(IConfiguration configuration)
+        public MusicService(IConfiguration configuration, IServiceProvider serviceProvider)
         {
+            _configuration = configuration;
+            _serviceProvider = serviceProvider;
             API_KEY = configuration.GetValue<string>("APIKeys:LastFM:ApiKey")!;
             SHARED_SECRET = configuration.GetValue<string>("APIKeys:LastFM:SharedSecret")!;
             USERNAME = configuration.GetValue<string>("APIKeys:LastFM:Username")!;
@@ -57,7 +63,7 @@ namespace MartinKulev.Services.Music
             try
             {
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
-                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}, {recentTrack.Genre}");
+                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}, {recentTrack?.Genre}");
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
@@ -169,8 +175,9 @@ namespace MartinKulev.Services.Music
                 playedAt = DateTime.UtcNow;
             }
 
+            using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
+            ListenedSong? listenedSong = await localDbContext.ListenedSongs.FirstOrDefaultAsync(ls => ls.Artist == artist && ls.Title == title);
             TimeSpan duration = TimeSpan.Zero;
-            List<string> genres = new();
             try
             {
                 string trackInfoUrl = $"https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key={API_KEY}" +
@@ -191,17 +198,6 @@ namespace MartinKulev.Services.Music
                             if (long.TryParse(durationProp.GetString(), out var durMs))
                                 duration = TimeSpan.FromMilliseconds(durMs);
                             break;
-                    }
-                }
-
-                if (trackInfo.TryGetProperty("toptags", out var toptags) &&
-                    toptags.TryGetProperty("tag", out var tagArray))
-                {
-                    foreach (var tag in tagArray.EnumerateArray())
-                    {
-                        var tagName = tag.GetProperty("name").GetString();
-                        if (!string.IsNullOrEmpty(tagName))
-                            genres.Add(tagName);
                     }
                 }
             }
@@ -245,12 +241,30 @@ namespace MartinKulev.Services.Music
             //    imageUrl = await GetArtistImage(artist);
             //}
 
-            if(string.IsNullOrEmpty(imageUrl))
+            if (string.IsNullOrEmpty(imageUrl))
             {
                 imageUrl = "/MusicNote.png";
             }
 
             TimeSpan progress = nowPlaying ? DateTime.UtcNow - playedAt : duration;
+
+
+            if (listenedSong == null)
+            {
+                Task.Run(async () =>
+                {
+                    await localDbContext.ListenedSongs.AddAsync(new ListenedSong
+                    {
+                        Artist = artist,
+                        Title = title,
+                        AlbumImageUrl = imageUrl,
+                        Duration = duration,
+                        LastPlayedAt = playedAt,
+                        Genre = string.Empty,
+                    });
+                    await localDbContext.SaveChangesAsync();
+                });
+            }
 
             return new CurrentSongDto
             {
@@ -261,7 +275,7 @@ namespace MartinKulev.Services.Music
                 Progress = progress,
                 PlayedAt = playedAt,
                 NowPlaying = nowPlaying,
-                Genre = string.Join(", ", genres)
+                Genre = listenedSong?.Genre
             };
         }
 

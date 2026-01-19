@@ -9,6 +9,8 @@ namespace MartinKulev.Data
 
         public DbSet<FeatureSuggestion> FeatureSuggestions { get; set; }
 
+        public DbSet<ListenedSong> ListenedSongs { get; set; }
+
         public MartinKulevDbContext(DbContextOptions<MartinKulevDbContext> options)
             : base(options)
         {
