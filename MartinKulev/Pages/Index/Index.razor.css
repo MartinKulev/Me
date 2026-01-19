@@ -103,7 +103,6 @@
 .intro-header {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
 }
 
 @media (max-width: 768px) {
@@ -115,6 +114,17 @@
 
     .now-playing-container {
         width: 100%;
+    }
+}
+
+.welcome-title {
+    white-space: nowrap; /* stay on one line */
+    max-width: 100%;
+}
+
+@media (max-width: 576px) {
+    .welcome-title {
+        white-space: normal; /* allow wrapping on small screens */
     }
 }
 
