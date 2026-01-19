@@ -57,6 +57,7 @@ namespace MartinKulev.Services.Music
             try
             {
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
+                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}");
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
