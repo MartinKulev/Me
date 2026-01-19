@@ -251,19 +251,16 @@ namespace MartinKulev.Services.Music
 
             if (listenedSong == null)
             {
-                Task.Run(async () =>
+                await localDbContext.ListenedSongs.AddAsync(new ListenedSong
                 {
-                    await localDbContext.ListenedSongs.AddAsync(new ListenedSong
-                    {
-                        Artist = artist,
-                        Title = title,
-                        AlbumImageUrl = imageUrl,
-                        Duration = duration,
-                        LastPlayedAt = playedAt,
-                        Genre = string.Empty,
-                    });
-                    await localDbContext.SaveChangesAsync();
+                    Artist = artist,
+                    Title = title,
+                    AlbumImageUrl = imageUrl,
+                    Duration = duration,
+                    LastPlayedAt = playedAt,
+                    Genre = string.Empty,
                 });
+                await localDbContext.SaveChangesAsync();
             }
 
             return new CurrentSongDto
