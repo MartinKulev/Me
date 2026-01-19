@@ -100,3 +100,21 @@
     cursor: pointer;
 }
 
+.intro-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+    .intro-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .now-playing-container {
+        width: 100%;
+    }
+}
+
