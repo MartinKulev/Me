@@ -1,4 +1,6 @@
+using MartinAI.Services;
 using MartinKulev.Data;
+using MartinKulev.Services.AI;
 using MartinKulev.Services.Music;
 using MartinKulev.Services.Projects;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
+builder.Services.AddTransient<IAIService, AIService>();
 builder.Services.AddSingleton<IMusicService, MusicService>();
+
 
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 builder.Logging.ClearProviders(); // remove default providers

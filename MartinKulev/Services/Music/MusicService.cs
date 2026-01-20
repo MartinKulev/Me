@@ -1,8 +1,12 @@
-﻿using MartinKulev.Data;
+﻿using MartinAI.Services;
+using MartinKulev.Data;
 using MartinKulev.Data.Entities;
+using MartinKulev.Dtos.AI;
 using MartinKulev.Dtos.Music;
+using MartinKulev.Services.AI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Serilog;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -17,13 +21,14 @@ namespace MartinKulev.Services.Music
     {
         private readonly IConfiguration _configuration;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IAIService _aiService;
         private readonly HttpClient _httpClient;
         private readonly string API_KEY;
         private readonly string SHARED_SECRET;
         private readonly string USERNAME;
+        private readonly string MUSIC_GENRE_INSTRUCTIONS;
         private string _sessionKey;
-        private Timer _trackTimer;   // updates progress every second
-        private Timer _fetchTimer;   // fetches new track every 1s
+        private Timer _fetchSongTimer;   // fetches new track every 1s
         private Timer _addUnexstingTrackToDbTimer;   // adds an item if it doesn't exist every 1min
         private Timer _fetchAllSongsTimer;   // fetches all songs every 10min
 
@@ -32,13 +37,15 @@ namespace MartinKulev.Services.Music
         public event Action OnSongChanged; // Notify UI
         private ConcurrentBag<ListenedSong> _listenedSongsCache = new ConcurrentBag<ListenedSong>();
 
-        public MusicService(IConfiguration configuration, IServiceProvider serviceProvider)
+        public MusicService(IConfiguration configuration, IServiceProvider serviceProvider, IAIService aIService)
         {
             _configuration = configuration;
             _serviceProvider = serviceProvider;
+            _aiService = aIService;
             API_KEY = configuration.GetValue<string>("APIKeys:LastFM:ApiKey")!;
             SHARED_SECRET = configuration.GetValue<string>("APIKeys:LastFM:SharedSecret")!;
             USERNAME = configuration.GetValue<string>("APIKeys:LastFM:Username")!;
+            MUSIC_GENRE_INSTRUCTIONS = configuration.GetValue<string>("APIKeys:OpenAI:MusicGenreInstructions")!;
             _httpClient = new HttpClient();
             FetchAllSongsFromDbToCache().GetAwaiter().GetResult();
             _currentSong = new CurrentSongDto
@@ -48,21 +55,31 @@ namespace MartinKulev.Services.Music
                 IsLoading = true
             };
 
-            _fetchTimer = new Timer(async _ =>
+            // fetches new track every 1s
+            new Timer(async _ =>
             {
                 await FetchCurrentSong();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000);
 
-            _addUnexstingTrackToDbTimer = new Timer(async _ =>
+            // adds an item if it doesn't exist every 1min
+            new Timer(async _ =>
             {
                 await AddCurrentSongToDb();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000 * 60);
-            
-            _fetchAllSongsTimer = new Timer(async _ =>
+
+            // fetches all songs every 10min
+            new Timer(async _ =>
             {
                 await FetchAllSongsFromDbToCache();
+                OnSongChanged?.Invoke();
+            }, null, 0, 1000 * 60 * 10);
+
+            // updates songs with their genre every 24 hours
+            new Timer(async _ =>
+            {
+                await UpdateSongsWithTheirGenre();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000 * 60 * 10);
 
@@ -311,6 +328,43 @@ namespace MartinKulev.Services.Music
         {
             using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
             _listenedSongsCache = [.. await localDbContext.ListenedSongs.AsNoTracking().ToListAsync()];
+        }
+
+        private async Task UpdateSongsWithTheirGenre()
+        {
+            using MartinKulevDbContext localDbContext = _serviceProvider.CreateScope().ServiceProvider.GetService<MartinKulevDbContext>();
+            List<ListenedSong> listenedSongs = await localDbContext.ListenedSongs.Where(p => p.Genre == string.Empty || p.Subgenre == string.Empty).ToListAsync();
+
+            AISongGenreRequest aiSongGenreRequest = new AISongGenreRequest
+            {
+                Songs = listenedSongs.Select(ls => new AISongGenreRequestSongInfo
+                {
+                    Artist = ls.Artist,
+                    Title = ls.Title
+                }).ToList()
+            };
+
+            if(aiSongGenreRequest.Songs.Count > 0)
+            {
+                AISongGenreResponse aiSongGenreResponse = JsonConvert.DeserializeObject<AISongGenreResponse>(await _aiService.GetAgentResponse(JsonConvert.SerializeObject(aiSongGenreRequest), MUSIC_GENRE_INSTRUCTIONS));
+                List<ListenedSong> songsToUpdate = new List<ListenedSong>();
+
+                foreach (var aiSongGenreInfo in aiSongGenreResponse.Songs)
+                {
+                    var song = listenedSongs.FirstOrDefault(ls =>
+                        ls.Artist == aiSongGenreInfo.Artist && ls.Title == aiSongGenreInfo.Title);
+
+                    song.Genre = aiSongGenreInfo.Genre;
+                    song.Subgenre = aiSongGenreInfo.Subgenre;
+                    songsToUpdate.Add(song);
+                }
+
+                if (songsToUpdate.Any())
+                {
+                    localDbContext.ListenedSongs.UpdateRange(songsToUpdate);
+                    await localDbContext.SaveChangesAsync();
+                }
+            }
         }
 
         private async Task<string> GetArtistImage(string artistName)
