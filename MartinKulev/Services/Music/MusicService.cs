@@ -298,7 +298,7 @@ namespace MartinKulev.Services.Music
                         Title = _currentSong.Title,
                         AlbumImageUrl = _currentSong.AlbumImageUrl,
                         Duration = _currentSong.Duration,
-                        LastPlayedAt = _currentSong.PlayedAt,
+                        FirstPlayedAt = _currentSong.PlayedAt,
                         Genre = _currentSong?.Genre ?? string.Empty
                     };
                     await localDbContext.ListenedSongs.AddAsync(newSong);
