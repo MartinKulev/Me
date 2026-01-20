@@ -28,10 +28,7 @@ namespace MartinKulev.Services.Music
         private readonly string USERNAME;
         private readonly string MUSIC_GENRE_INSTRUCTIONS;
         private string _sessionKey;
-        private Timer _fetchSongTimer;   // fetches new track every 1s
-        private Timer _addUnexstingTrackToDbTimer;   // adds an item if it doesn't exist every 1min
-        private Timer _fetchAllSongsTimer;   // fetches all songs every 10min
-
+        private Timer _fetchSongTimer;
         private CurrentSongDto _currentSong;
 
         public event Action OnSongChanged; // Notify UI
@@ -56,7 +53,7 @@ namespace MartinKulev.Services.Music
             };
 
             // fetches new track every 1s
-            new Timer(async _ =>
+            _fetchSongTimer = new Timer(async _ =>
             {
                 await FetchCurrentSong();
                 OnSongChanged?.Invoke();
