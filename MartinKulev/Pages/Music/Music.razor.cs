@@ -1,6 +1,7 @@
 ﻿using MartinKulev.Services.Music;
 using MartinKulev.ViewModels.Shared;
 using Microsoft.AspNetCore.Components;
+using System.Threading;
 
 namespace MartinKulev.Pages.Music
 {
@@ -12,11 +13,21 @@ namespace MartinKulev.Pages.Music
         [Parameter]
         public SharedVm Vm { get; set; } = new SharedVm();
 
+        private PeriodicTimer _uiTimer;
+
         protected override async Task OnInitializedAsync()
         {
             Vm.CurrentSong = MusicService.GetCurrentSong();
-            MusicService.OnSongChanged += UpdateSong;
-            await base.OnInitializedAsync();
+
+            _uiTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(250));
+
+            _ = Task.Run(async () =>
+            {
+                while (await _uiTimer.WaitForNextTickAsync())
+                {
+                    await InvokeAsync(StateHasChanged);
+                }
+            });
         }
 
         private void UpdateSong()

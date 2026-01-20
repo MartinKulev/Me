@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -47,15 +48,6 @@ namespace MartinKulev.Services.Music
                 IsLoading = true
             };
 
-            _trackTimer = new Timer(_ =>
-            {
-                if (_currentSong.Progress < _currentSong.Duration)
-                {
-                    _currentSong.Progress = _currentSong.Progress.Add(TimeSpan.FromSeconds(1));
-                    OnSongChanged?.Invoke();
-                }
-            }, null, 0, 950);
-
             _fetchTimer = new Timer(async _ =>
             {
                 await FetchCurrentSong();
@@ -76,6 +68,17 @@ namespace MartinKulev.Services.Music
 
         }
 
+        public TimeSpan GetProgress()
+        {
+            var elapsed = DateTime.UtcNow - _currentSong.StartedAtUtc;
+            var progress = _currentSong.StartOffset + elapsed;
+
+            return progress > _currentSong.Duration
+                ? _currentSong.Duration
+                : progress;
+        }
+
+
         public CurrentSongDto GetCurrentSong() => _currentSong;
 
         private async Task FetchCurrentSong()
@@ -85,7 +88,6 @@ namespace MartinKulev.Services.Music
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
                 _currentSong.IsLoading = false;
                 _currentSong.Genre = recentTrack.Genre;
-                Log.Logger.Warning($"{DateTime.UtcNow}: {recentTrack.Artist} - {recentTrack.Title}, {recentTrack?.Genre}");
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
