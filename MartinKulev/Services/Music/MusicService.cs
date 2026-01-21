@@ -29,6 +29,9 @@ namespace MartinKulev.Services.Music
         private readonly string MUSIC_GENRE_INSTRUCTIONS;
         private string _sessionKey;
         private Timer _fetchSongTimer;
+        private Timer _addSongToDbTimer;
+        private Timer _fetchSongsFromDbToCache;
+        private Timer _updateSongsWithGenreTimer;
         private CurrentSongDto _currentSong;
 
         public event Action OnSongChanged; // Notify UI
@@ -60,21 +63,21 @@ namespace MartinKulev.Services.Music
             }, null, 0, 1000);
 
             // adds an item if it doesn't exist every 1min
-            new Timer(async _ =>
+            _addSongToDbTimer = new Timer(async _ =>
             {
                 await AddCurrentSongToDb();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000 * 60);
 
             // fetches all songs every 10min
-            new Timer(async _ =>
+            _fetchSongsFromDbToCache = new Timer(async _ =>
             {
                 await FetchAllSongsFromDbToCache();
                 OnSongChanged?.Invoke();
             }, null, 0, 1000 * 60 * 10);
 
             // updates songs with their genre every 24 hours
-            new Timer(async _ =>
+            _updateSongsWithGenreTimer = new Timer(async _ =>
             {
                 await UpdateSongsWithTheirGenre();
                 OnSongChanged?.Invoke();
@@ -101,7 +104,6 @@ namespace MartinKulev.Services.Music
             {
                 var recentTrack = await GetLastListenedTrackDto(_sessionKey);
                 _currentSong.IsLoading = false;
-                _currentSong.Genre = recentTrack.Genre;
 
                 if (_currentSong.Title != recentTrack.Title || _currentSong.Artist != recentTrack.Artist)
                 {
@@ -310,12 +312,14 @@ namespace MartinKulev.Services.Music
                     {
                         Artist = _currentSong.Artist,
                         Title = _currentSong.Title,
+                        Album = _currentSong.Album ?? string.Empty,
                         AlbumImageUrl = _currentSong.AlbumImageUrl,
                         Duration = _currentSong.Duration,
                         FirstPlayedAt = _currentSong.PlayedAt,
-                        Genre = _currentSong?.Genre ?? string.Empty
+                        Genre = _currentSong?.Genre ?? string.Empty,
+                        Subgenre = _currentSong?.SubGenre ?? string.Empty
                     };
-                    await localDbContext.ListenedSongs.AddAsync(newSong);
+                    await localDbContext.AddAsync(newSong);
                     await localDbContext.SaveChangesAsync();
                 }
             }
