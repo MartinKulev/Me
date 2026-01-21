@@ -2,9 +2,9 @@
 {
     public class CurrentSongDto
     {
-        public string Artist { get; set; } = "Loading...";
-        public string Title { get; set; } = "Loading...";
-        public string Album { get; set; } = "Loading...";
+        public string Artist { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Album { get; set; } = "";
         public string AlbumImageUrl { get; set; } = "";
         public DateTime StartedAtUtc { get; set; }
         public TimeSpan StartOffset { get; set; }

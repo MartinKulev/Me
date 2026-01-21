@@ -67,7 +67,7 @@ namespace MartinKulev.Services.Music
             {
                 await AddCurrentSongToDb();
                 OnSongChanged?.Invoke();
-            }, null, 0, 1000 * 60);
+            }, null, 1000 * 10, 1000 * 60);
 
             // fetches all songs every 10min
             _fetchSongsFromDbToCache = new Timer(async _ =>
@@ -184,6 +184,12 @@ namespace MartinKulev.Services.Music
             string artist = trackElement.GetProperty("artist").GetProperty("#text").GetString();
             string title = trackElement.GetProperty("name").GetString();
 
+            string album = null;
+            if (trackElement.TryGetProperty("album", out var albumProp))
+            {
+                album = albumProp.GetProperty("#text").GetString();
+            }
+
             bool nowPlaying = trackElement.TryGetProperty("@attr", out var attr) &&
                               attr.TryGetProperty("nowplaying", out var np) &&
                               np.GetString() == "true";
@@ -291,6 +297,7 @@ namespace MartinKulev.Services.Music
             {
                 Artist = artist,
                 Title = title,
+                Album = album,
                 AlbumImageUrl = imageUrl,
                 Duration = duration,
                 Progress = progress,

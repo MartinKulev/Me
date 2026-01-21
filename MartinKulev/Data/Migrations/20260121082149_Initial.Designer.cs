@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MartinKulev.Migrations
 {
     [DbContext(typeof(MartinKulevDbContext))]
-    [Migration("20260119132739_ListenedSongsTable")]
-    partial class ListenedSongsTable
+    [Migration("20260121082149_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,10 @@ namespace MartinKulev.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Album")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("AlbumImageUrl")
                         .IsRequired()
                         .HasColumnType("text");
@@ -94,12 +98,16 @@ namespace MartinKulev.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("interval");
 
+                    b.Property<DateTime>("FirstPlayedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("LastPlayedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("Subgenre")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
