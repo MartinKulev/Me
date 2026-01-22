@@ -76,12 +76,12 @@ namespace MartinKulev.Services.Music
                 OnSongChanged?.Invoke();
             }, null, 0, 1000 * 60 * 10);
 
-            // updates songs with their genre every 24 hours
-            _updateSongsWithGenreTimer = new Timer(async _ =>
-            {
-                await UpdateSongsWithTheirGenre();
-                OnSongChanged?.Invoke();
-            }, null, 0, 1000 * 60 * 10);
+            //// updates songs with their genre every 24 hours
+            //_updateSongsWithGenreTimer = new Timer(async _ =>
+            //{
+            //    await UpdateSongsWithTheirGenre();
+            //    OnSongChanged?.Invoke();
+            //}, null, 0, 1000 * 60 * 10);
 
         }
 
