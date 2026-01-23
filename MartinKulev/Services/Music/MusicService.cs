@@ -303,7 +303,8 @@ namespace MartinKulev.Services.Music
                 Progress = progress,
                 PlayedAt = playedAt,
                 NowPlaying = nowPlaying,
-                Genre = listenedSong?.Genre
+                Genre = listenedSong?.Genre,
+                SubGenre = listenedSong?.Subgenre
             };
         }
 
