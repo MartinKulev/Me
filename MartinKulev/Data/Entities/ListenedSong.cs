@@ -9,7 +9,8 @@
         public string AlbumImageUrl { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime FirstPlayedAt { get; set; }
-        public string Genre { get; set; }
-        public string Subgenre { get; set; }
+        public string? Genre { get; set; }
+        public string? Subgenre { get; set; }
+        public int? ReleaseYear { get; set; }
     }
 }

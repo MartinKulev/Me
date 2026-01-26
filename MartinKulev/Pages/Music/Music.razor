@@ -35,10 +35,16 @@
                     </span>
                 }
             </div>
-            @if(!string.IsNullOrEmpty(Vm.CurrentSong.SubGenre) || Vm.CurrentSong.SubGenre == "Unknown")
+            @if(!string.IsNullOrEmpty(Vm.CurrentSong.SubGenre) && Vm.CurrentSong.SubGenre != "-")
             {
                 <div class="mt-2">
-                    <b>Genre</b>: @Vm.CurrentSong.SubGenre (@Vm.CurrentSong.Genre)
+                    <b>Genre</b>: @Vm.CurrentSong.SubGenre
+                </div>
+            }
+            @if (Vm.CurrentSong.ReleaseYear != null && Vm.CurrentSong.ReleaseYear != 0)
+            {
+                <div class="mt-2">
+                    <b>ReleaseYear</b>: @Vm.CurrentSong.ReleaseYear
                 </div>
             }
         </div>

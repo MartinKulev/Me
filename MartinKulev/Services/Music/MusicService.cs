@@ -304,7 +304,8 @@ namespace MartinKulev.Services.Music
                 PlayedAt = playedAt,
                 NowPlaying = nowPlaying,
                 Genre = listenedSong?.Genre,
-                SubGenre = listenedSong?.Subgenre
+                SubGenre = listenedSong?.Subgenre,
+                ReleaseYear = listenedSong?.ReleaseYear,
             };
         }
 
@@ -324,8 +325,9 @@ namespace MartinKulev.Services.Music
                         AlbumImageUrl = _currentSong.AlbumImageUrl,
                         Duration = _currentSong.Duration,
                         FirstPlayedAt = _currentSong.PlayedAt,
-                        Genre = _currentSong?.Genre ?? string.Empty,
-                        Subgenre = _currentSong?.SubGenre ?? string.Empty
+                        Genre = _currentSong?.Genre,
+                        Subgenre = _currentSong?.SubGenre,
+                        ReleaseYear = _currentSong?.ReleaseYear,
                     };
                     await localDbContext.AddAsync(newSong);
                     await localDbContext.SaveChangesAsync();

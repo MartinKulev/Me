@@ -13,8 +13,9 @@
         public DateTime PlayedAt { get; set; } = DateTime.UtcNow;
         public bool NowPlaying { get; set; } = false;
         public bool IsLoading { get; set; } = false;
-        public string Genre { get; set; } = "";
-        public string SubGenre { get; set; } = "";
+        public string? Genre { get; set; }
+        public string? SubGenre { get; set; }
+        public int? ReleaseYear { get; set; }
     }
 
 }
