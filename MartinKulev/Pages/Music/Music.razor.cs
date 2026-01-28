@@ -19,6 +19,8 @@ namespace MartinKulev.Pages.Music
         {
             Vm.CurrentSong = MusicService.GetCurrentSong();
 
+            MusicService.OnSongChanged += UpdateSong;
+
             _uiTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(250));
 
             _ = Task.Run(async () =>
