@@ -37,9 +37,19 @@
             </div>
             @if (!string.IsNullOrEmpty(Vm.CurrentSong.Album) && Vm.CurrentSong.Album != "-")
             {
-                <div class="mt-2">
-                    <b>From:</b> @Vm.CurrentSong.Album
-                </div>
+                if (Vm.CurrentSong.Album == Vm.CurrentSong.Artist)
+                {
+                    <div class="mt-2">
+                        <b>From:</b> @Vm.CurrentSong.Album (Self-titled)
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-2">
+                        <b>From:</b> @Vm.CurrentSong.Album
+                    </div>
+                }
+
             }
             @if(!string.IsNullOrEmpty(Vm.CurrentSong.SubGenre) && Vm.CurrentSong.SubGenre != "-")
             {
