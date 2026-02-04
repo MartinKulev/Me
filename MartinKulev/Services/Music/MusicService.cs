@@ -61,13 +61,9 @@ namespace MartinKulev.Services.Music
             {
                 await FetchCurrentSong();
                 OnSongChanged?.Invoke();
-            }, null, 0, 5000);
+            }, null, 0, 3000);
 
-            _updateSongProgress = new Timer(async _ =>
-            {
-                await UpdateSongProgress();
-                OnSongChanged?.Invoke();
-            }, null, 0, 1000);
+            Task.Run(UpdateSongProgress);
 
             // adds an item if it doesn't exist every 1min
             //_addSongToDbTimer = new Timer(async _ =>
@@ -96,10 +92,14 @@ namespace MartinKulev.Services.Music
 
         private async Task UpdateSongProgress()
         {
-            if (!_currentSong.IsLoading && _currentSong.NowPlaying)
+            while(true)
             {
-                _currentSong.Progress = DateTime.UtcNow - _currentSong.PlayedAt;
-                OnSongChanged?.Invoke();
+                if (!_currentSong.IsLoading && _currentSong.NowPlaying)
+                {
+                    _currentSong.Progress = DateTime.UtcNow - _currentSong.PlayedAt;
+                    OnSongChanged?.Invoke();
+                }
+                await Task.Delay(1000);
             }
         }
 
