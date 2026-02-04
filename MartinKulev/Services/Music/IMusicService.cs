@@ -6,8 +6,6 @@ namespace MartinKulev.Services.Music
     {
         CurrentSongDto GetCurrentSong();
 
-        TimeSpan GetProgress();
-
         event Action OnSongChanged;
     }
 }

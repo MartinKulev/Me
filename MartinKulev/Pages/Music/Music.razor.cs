@@ -18,11 +18,7 @@ namespace MartinKulev.Pages.Music
         protected override async Task OnInitializedAsync()
         {
             Vm.CurrentSong = MusicService.GetCurrentSong();
-
             MusicService.OnSongChanged += UpdateSong;
-
-            _uiTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(250));
-
             _ = Task.Run(async () =>
             {
                 while (await _uiTimer.WaitForNextTickAsync())
