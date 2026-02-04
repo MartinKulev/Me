@@ -24,7 +24,7 @@
             </div>
 
             <div class="song-status text-center mt-1">
-                @if ((DateTime.UtcNow - Vm.CurrentSong.PlayedAt).TotalMinutes < 5)
+                @if (DateTime.UtcNow - Vm.CurrentSong.PlayedAt < Vm.CurrentSong.Duration)
                 {
                     <span class="text-success">Now Playing</span>
                 }

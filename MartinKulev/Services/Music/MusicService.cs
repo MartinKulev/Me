@@ -96,7 +96,15 @@ namespace MartinKulev.Services.Music
             {
                 if (!_currentSong.IsLoading && _currentSong.NowPlaying)
                 {
-                    _currentSong.Progress = DateTime.UtcNow - _currentSong.PlayedAt;
+                    if(_currentSong.Progress > _currentSong.Duration)
+                    {
+                        _currentSong.Progress = _currentSong.Duration;
+                    }
+                    else
+                    {
+                        _currentSong.Progress = DateTime.UtcNow - _currentSong.PlayedAt;
+                    }
+
                     OnSongChanged?.Invoke();
                 }
                 await Task.Delay(1000);
