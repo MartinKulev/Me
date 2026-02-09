@@ -246,7 +246,7 @@ namespace MartinKulev.Services.Music
 
             if (string.IsNullOrEmpty(imageUrl))
             {
-                imageUrl = "/MusicNote.png";
+                imageUrl = "/Music/MusicNote.png";
             }
 
             return new CurrentSongDto
