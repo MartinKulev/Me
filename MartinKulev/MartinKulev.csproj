@@ -23,4 +23,8 @@
 	  <PackageReference Include="Serilog.Extensions" Version="9.1.0" />
 	  <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="wwwroot\Music\2023Recap\" />
+	  <Folder Include="wwwroot\Music\2026Recap\" />
+	</ItemGroup>
 </Project>

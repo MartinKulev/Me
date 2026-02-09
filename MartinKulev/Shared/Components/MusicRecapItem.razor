@@ -1,0 +1,27 @@
+﻿<div class="album-grid mb-5 mt-5">
+    <div class="album-item featured">
+        <div class="text-center fs-3 fw-bold">@Year</div>
+        <img src="Music/@($"{Year}Recap")/@($"{Year}Recap").jpg" onerror="this.onerror=null;this.src='/BlackScreen.jpg';" />
+    </div>
+
+    <div class="album-item">
+        <div class="text-center fs-3 fw-bold">Winter</div>
+        <img src="Music/@($"{Year}Recap")/@($"{Year}Recap_Winter").jpg" onerror="this.onerror=null;this.src='/BlackScreen.jpg';" />
+    </div>
+    <div class="album-item">
+        <div class="text-center fs-3 fw-bold">Spring</div>
+        <img src="Music/@($"{Year}Recap")/@($"{Year}Recap_Spring").jpg" onerror="this.onerror=null;this.src='/BlackScreen.jpg';" />
+    </div>
+    <div class="album-item">
+        <div class="text-center fs-3 fw-bold">Summer</div>
+        <img src="Music/@($"{Year}Recap")/@($"{Year}Recap_Summer").jpg" onerror="this.onerror=null;this.src='/BlackScreen.jpg';" />
+    </div>
+    <div class="album-item">
+        <div class="text-center fs-3 fw-bold">Autumn</div>
+        <img src="Music/@($"{Year}Recap")/@($"{Year}Recap_Autumn").jpg" onerror="this.onerror=null;this.src='/BlackScreen.jpg';" />
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Year { get; set; }
+}

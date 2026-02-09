@@ -1,10 +1,11 @@
 ﻿@page "/music"
 @using MartinKulev.Services.Helper
+@using MartinKulev.Shared.Components
 <PageTitle>Music</PageTitle>
 <h3 class="text-center mb-5">Music</h3>
 
-<section class="music-page mt-5">
-    <div class="mobile-player">
+<section class="music-page mt-5 d-flex flex-column">
+    <div class="mobile-player mb-5">
         <img src="@Vm.CurrentSong.AlbumImageUrl" class="player-album-art" />
 
         <div class="player-title">@Vm.CurrentSong.Title</div>
@@ -51,7 +52,7 @@
                 }
 
             }
-            @if(!string.IsNullOrEmpty(Vm.CurrentSong.SubGenre) && Vm.CurrentSong.SubGenre != "-")
+            @if (!string.IsNullOrEmpty(Vm.CurrentSong.SubGenre) && Vm.CurrentSong.SubGenre != "-")
             {
                 <div class="mt-2">
                     <b>Genre:</b> @Vm.CurrentSong.SubGenre
@@ -65,4 +66,11 @@
             }
         </div>
     </div>
+    <div class="text-center fw-bold fs-1 mt-5">Recaps</div>
+    <section class="album-grid-section w-100">
+        <MusicRecapItem Year="2026"></MusicRecapItem>
+        <MusicRecapItem Year="2025"></MusicRecapItem>
+        <MusicRecapItem Year="2024"></MusicRecapItem>
+        <MusicRecapItem Year="2023"></MusicRecapItem>
+    </section>
 </section>

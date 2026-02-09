@@ -1,0 +1,48 @@
+﻿
+.album-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.album-item {
+    width: 100%;
+    border-radius: 12px;
+}
+
+@media (max-width: 576px) {
+    .album-grid {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scroll-snap-type: x mandatory;
+    }
+
+    .album-item {
+        flex: 0 0 70%;
+        scroll-snap-align: start;
+        min-width: 200px;
+        min-height: 300px;
+    }
+}
+
+
+.album-item img {
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.album-item.featured {
+    background: linear-gradient(135deg, #6f42c1, #0d6efd);
+}
+
+    .album-item.featured img {
+        border-radius: 8px;
+    }
+
+.album-item:hover {
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
+}
