@@ -1,5 +1,15 @@
 ﻿@page "/travel"
-<PageTitle>Travel</PageTitle>
-<h3 class="text-center">Report Bug</h3>
+@using MartinKulev.Shared.Components
 
-<h1 class="text-center text-danger">This page is under construction!</h1>
+<PageTitle>Travel</PageTitle>
+
+<h3 class="text-center mb-5">Travel</h3>
+<div class="container py-5">
+    <div class="timeline">
+        <TimelineItem Position="left" ImagePath="/Travel/Norway2025.jpg" Description="Norway" Date="Dec 2025"></TimelineItem>
+        <TimelineItem Position="right" ImagePath="/Travel/Cyprus.jpg" Description="Pafos, Cyprus" Date="Sep 2025 - Oct 2025"></TimelineItem>
+        <TimelineItem Position="left" ImagePath="/Travel/Dubai.jpg" Description="UAE, Qatar, Oman, " Date="Dec 2024 - Jan 2025"></TimelineItem>
+        <TimelineItem Position="right" ImagePath="/Travel/Norway2022.mp4" Description="Norway" Date="Dec 2022 - Jan 2023"></TimelineItem>
+        <TimelineItem Position="left" ImagePath="/Travel/Egypt.jpg" Description="Egypt" Date="Oct 2022 - Nov 2022"></TimelineItem>
+    </div>
+</div>
